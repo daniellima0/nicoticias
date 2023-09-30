@@ -12,7 +12,7 @@ const Container = styled("div")`
     align-items: center;
 `;
 
-const Login: React.FC = () => {
+const News: React.FC = () => {
     return (
         <Container>
             <Header />
@@ -21,4 +21,4 @@ const Login: React.FC = () => {
     );
 };
 
-export default Login;
+export default News;

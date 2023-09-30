@@ -8,10 +8,11 @@ const Form = styled("form")`
     align-items: center;
     justify-content: center;
     margin: auto;
+    margin-top: 130px;
 `;
 
 const Label = styled("label")`
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     display: flex;
     flex-direction: column;
 `;
