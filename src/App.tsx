@@ -23,7 +23,7 @@ function App() {
         const delay = setTimeout(() => {
             setShowLoading(false);
             clearTimeout(delay);
-        }, 1000); // Adjust the delay time (in milliseconds) as needed
+        }, 800); // Adjust the delay time (in milliseconds) as needed
 
         return () => {
             clearTimeout(delay);

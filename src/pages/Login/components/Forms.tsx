@@ -1,6 +1,5 @@
 import { styled } from "@mui/material/styles";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Form = styled("form")`
     display: flex;
@@ -58,8 +57,6 @@ const Forms: React.FC = () => {
         password: "123456",
     };
 
-    const navigate = useNavigate();
-
     const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (
@@ -69,7 +66,8 @@ const Forms: React.FC = () => {
             alert("Wrong username or password");
             return;
         } else {
-            navigate("/news");
+            window.location.href = "/news";
+            document.cookie = "token=token123";
         }
     };
 

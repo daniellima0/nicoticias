@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import Header from "../../components/Header";
 import Carousel from "./components/Carousel";
+import { Navigate } from "react-router-dom";
 
 const Container = styled("div")`
     background-color: black;
@@ -14,10 +15,13 @@ const Container = styled("div")`
 
 const News: React.FC = () => {
     return (
-        <Container>
-            <Header />
-            <Carousel />
-        </Container>
+        <>
+            {!document.cookie.split("=")[1] && <Navigate to="/" />}
+            <Container>
+                <Header />
+                <Carousel />
+            </Container>
+        </>
     );
 };
 

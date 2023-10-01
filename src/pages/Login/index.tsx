@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import Forms from "./components/Forms";
 import Header from "../../components/Header";
+import { Navigate } from "react-router-dom";
 
 const Container = styled("div")`
     background-color: black;
@@ -14,10 +15,13 @@ const Container = styled("div")`
 
 const Login: React.FC = () => {
     return (
-        <Container>
-            <Header />
-            <Forms />
-        </Container>
+        <>
+            {document.cookie.split("=")[1] && <Navigate to="/news" />}
+            <Container>
+                <Header />
+                <Forms />
+            </Container>
+        </>
     );
 };
 
