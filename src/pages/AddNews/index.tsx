@@ -1,8 +1,8 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import Header from "../../components/Header";
-import Carousel from "./components/Carousel";
 import { Navigate } from "react-router-dom";
+import Forms from "./components/Forms";
 
 const Container = styled("div")`
     background-color: black;
@@ -13,16 +13,16 @@ const Container = styled("div")`
     align-items: center;
 `;
 
-const News: React.FC = () => {
+const AddNews: React.FC = () => {
     return (
         <>
             {!document.cookie.split("=")[1] && <Navigate to="/" />}
             <Container>
-                <Header addNewsButton={true} />
-                <Carousel />
+                <Header addNewsButton={false} />
+                <Forms />
             </Container>
         </>
     );
 };
 
-export default News;
+export default AddNews;

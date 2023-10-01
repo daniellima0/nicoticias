@@ -8,6 +8,20 @@ const Container = styled("div")`
     width: 100vw;
 `;
 
+const AddButton = styled("button")`
+    color: black;
+    font-size: 18px;
+    font-weight: 700;
+    width: 120px;
+    height: 40px;
+    border: 1px solid #ff9900;
+    background-color: #ff9900;
+    cursor: pointer;
+    align-self: center;
+    justify-self: start;
+    margin-left: 60px;
+`;
+
 const Title = styled("h1")`
     color: #ff9900;
     font-size: 50px;
@@ -33,7 +47,11 @@ const LogoffButton = styled("button")`
     margin-right: 60px;
 `;
 
-const Header: React.FC = () => {
+interface HeaderProps {
+    addNewsButton?: boolean;
+}
+
+const Header: React.FC<HeaderProps> = (props) => {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
     useEffect(() => {
@@ -49,8 +67,15 @@ const Header: React.FC = () => {
         document.cookie = "token=";
     };
 
+    const handleAdd = () => {
+        window.location.href = "/add-news";
+    };
+
     return (
         <Container>
+            {props.addNewsButton && (
+                <AddButton onClick={handleAdd}>+ Adicionar</AddButton>
+            )}
             <Title>NICOTICIAS</Title>
             {isUserLoggedIn && (
                 <LogoffButton onClick={handleLogoff}>Sair</LogoffButton>
