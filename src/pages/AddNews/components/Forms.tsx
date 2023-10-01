@@ -1,5 +1,7 @@
 import { styled } from "@mui/material/styles";
 import React, { useState } from "react";
+import { db } from "../../../firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 const Form = styled("form")`
     display: flex;
@@ -68,11 +70,22 @@ const Forms: React.FC = () => {
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
 
-    const handleAddNews = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleAddNews = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (title && description && url) {
-            // add logic of adding the post to the news object in localstorage
+            /* function to add new task to firestore */
+            try {
+                await addDoc(collection(db, "news"), {
+                    title: title,
+                    description: description,
+                    url: url,
+                });
+            } catch (err) {
+                alert(err);
+            }
+
             window.location.href = "/news";
+
             return;
         } else {
             alert("Preencha todos os campos!");

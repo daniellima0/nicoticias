@@ -1,12 +1,14 @@
 import { styled } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Icon from "@mdi/react";
+import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { db } from "../../../firebase";
 import cachorro from "../../../images/cachorro.png";
 import chico from "../../../images/chico.png";
 import clube from "../../../images/clube.png";
 import nandao from "../../../images/nandao.png";
 import gorila from "../../../images/gorila.png";
-import Icon from "@mdi/react";
-import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
 
 const Container = styled("div")`
     margin-top: 40px;
@@ -27,6 +29,7 @@ const Button = styled("button")`
 const SliderWrapper = styled("div")`
     overflow: auto;
     display: flex;
+    height: 400px;
 `;
 
 const Item = styled("div")`
@@ -39,6 +42,7 @@ const Item = styled("div")`
 
 const Image = styled("img")`
     width: 250px;
+    object-fit: cover;
 `;
 
 const ContentWrapper = styled("div")`
@@ -61,48 +65,90 @@ const Description = styled("p")`
     font-size: 1.1rem;
 `;
 
+interface INews {
+    id: string;
+    data: {
+        title: string;
+        description: string;
+        url: string;
+    };
+}
+
+const defaultNewsList = [
+    {
+        id: "1",
+        data: {
+            title: "Noticia 1",
+            description: "Descrição da noticia 1",
+            url: nandao,
+        },
+    },
+    {
+        id: "2",
+        data: {
+            title: "Noticia 2",
+            description: "Descrição da noticia 2",
+            url: cachorro,
+        },
+    },
+    {
+        id: "3",
+        data: {
+            title: "Noticia 3",
+            description: "Descrição da noticia 3",
+            url: clube,
+        },
+    },
+    {
+        id: "4",
+        data: {
+            title: "Noticia 4",
+            description: "Descrição da noticia 4",
+            url: gorila,
+        },
+    },
+    {
+        id: "5",
+        data: {
+            title: "Noticia 5",
+            description: "Descrição da noticia 5",
+            url: chico,
+        },
+    },
+];
+
 const Carousel: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [newsList, setNewsList] = useState<Array<INews>>(defaultNewsList);
 
     const goToPreviousSlide = () => {
         setActiveIndex((prevIndex) =>
-            prevIndex === 0 ? carouselItens.length - 1 : prevIndex - 1
+            prevIndex === 0 ? newsList.length - 1 : prevIndex - 1
         );
     };
 
     const goToNextSlide = () => {
         setActiveIndex((prevIndex) =>
-            prevIndex === carouselItens.length - 1 ? 0 : prevIndex + 1
+            prevIndex === newsList.length - 1 ? 0 : prevIndex + 1
         );
     };
 
-    const carouselItens = [
-        {
-            title: "Noticia 1",
-            description: "Descrição da noticia 1",
-            image: nandao,
-        },
-        {
-            title: "Noticia 2",
-            description: "Descrição da noticia 2",
-            image: cachorro,
-        },
-        {
-            title: "Noticia 3",
-            description: "Descrição da noticia 3",
-            image: clube,
-        },
-        {
-            title: "Noticia 4",
-            description: "Descrição da noticia 4",
-            image: gorila,
-        },
-        {
-            title: "Noticia 5",
-            description: "Descrição da noticia 5",
-            image: chico,
-        },
-    ];
+    useEffect(() => {
+        const q = query(collection(db, "news"));
+        onSnapshot(q, (querySnapshot) => {
+            setNewsList((prevNewsList) => [
+                ...prevNewsList,
+                ...querySnapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    data: {
+                        title: doc.data().title,
+                        description: doc.data().description,
+                        url: doc.data().url,
+                    },
+                })),
+            ]);
+        });
+    }, []);
 
     return (
         <Container>
@@ -110,18 +156,20 @@ const Carousel: React.FC = () => {
                 <Icon path={mdiChevronLeft} size={2} color={"white"} />
             </Button>
             <SliderWrapper>
-                {carouselItens.map((item, index) => {
+                {newsList.map((item) => {
                     return (
                         <Item
-                            key={index}
+                            key={item.id}
                             style={{
                                 transform: `translateX(-${activeIndex * 100}%)`,
                             }}
                         >
-                            <Image src={item.image} alt="" />
+                            <Image src={item.data.url} alt="" />
                             <ContentWrapper>
-                                <Title>{item.title}</Title>
-                                <Description>{item.description}</Description>
+                                <Title>{item.data.title}</Title>
+                                <Description>
+                                    {item.data.description}
+                                </Description>
                             </ContentWrapper>
                         </Item>
                     );

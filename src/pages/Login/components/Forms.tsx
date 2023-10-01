@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles";
 import React, { useState } from "react";
+import explosionGif from "../../../images/explosion.gif";
 
 const Form = styled("form")`
     display: flex;
@@ -48,9 +49,18 @@ const Button = styled("button")`
     }
 `;
 
+const Gif = styled("img")`
+    position: absolute;
+    z-index: 10;
+    right: 340px;
+    top: 0;
+    width: 700px;
+`;
+
 const Forms: React.FC = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [showExplosion, setShowExplosion] = useState(false);
 
     const userCredentials = {
         username: "nicoboco",
@@ -66,8 +76,11 @@ const Forms: React.FC = () => {
             alert("Wrong username or password");
             return;
         } else {
-            window.location.href = "/news";
-            document.cookie = "token=token123";
+            setShowExplosion(true);
+            setTimeout(() => {
+                window.location.href = "/news";
+                document.cookie = "token=token123";
+            }, 3000);
         }
     };
 
@@ -90,6 +103,7 @@ const Forms: React.FC = () => {
                 />
             </Label>
             <Button type="submit">DETONATE</Button>
+            {showExplosion && <Gif src={explosionGif} alt="Explosion" />}
         </Form>
     );
 };
