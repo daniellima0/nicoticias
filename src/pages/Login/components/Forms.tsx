@@ -1,6 +1,7 @@
 import { styled } from "@mui/material/styles";
 import React, { useState } from "react";
 import explosionGif from "../../../images/explosion.gif";
+import MuiButton from "@mui/material/Button";
 
 const Form = styled("form")`
     display: flex;
@@ -32,7 +33,7 @@ const Input = styled("input")`
     }
 `;
 
-const Button = styled("button")`
+const Button = styled(MuiButton)`
     margin-top: 10px;
     padding: 5px;
     width: 400px;
@@ -102,7 +103,9 @@ const Forms: React.FC = () => {
                     onChange={(event) => setPassword(event.target.value)}
                 />
             </Label>
-            <Button type="submit">DETONATE</Button>
+            <Button variant="contained" type="submit">
+                DETONATE
+            </Button>
             {showExplosion && <Gif src={explosionGif} alt="Explosion" />}
         </Form>
     );
