@@ -6,40 +6,40 @@ import News from "./pages/News";
 import AddNews from "./pages/AddNews";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Login />,
-    },
-    {
-        path: "/news",
-        element: <News />,
-    },
-    {
-        path: "/add-news",
-        element: <AddNews />,
-    },
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/news",
+    element: <News />,
+  },
+  {
+    path: "/add-news",
+    element: <AddNews />,
+  },
 ]);
 
 function App() {
-    const [showLoading, setShowLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(true);
 
-    useEffect(() => {
-        // Simulate a delay before hiding the loading component
-        const delay = setTimeout(() => {
-            setShowLoading(false);
-            clearTimeout(delay);
-        }, 800); // Adjust the delay time (in milliseconds) as needed
+  useEffect(() => {
+    // Simulate a delay before hiding the loading component
+    const delay = setTimeout(() => {
+      setShowLoading(false);
+      clearTimeout(delay);
+    }, 800); // Adjust the delay time (in milliseconds) as needed
 
-        return () => {
-            clearTimeout(delay);
-        };
-    }, []);
+    return () => {
+      clearTimeout(delay);
+    };
+  }, []);
 
-    return (
-        <Suspense fallback={<Loading />}>
-            {showLoading ? <Loading /> : <RouterProvider router={router} />}
-        </Suspense>
-    );
+  return (
+    <Suspense fallback={<Loading />}>
+      {showLoading ? <Loading /> : <RouterProvider router={router} />}
+    </Suspense>
+  );
 }
 
 export default App;
