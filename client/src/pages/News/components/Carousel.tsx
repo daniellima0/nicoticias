@@ -120,7 +120,7 @@ const Carousel: React.FC = () => {
   };
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_BACKEND_BASE_URL)
+    fetch("http://localhost:4111/")
       .then((response) => response.json())
       .then((result: INews[]) => {
         setNewsList((prevNewsList) => [

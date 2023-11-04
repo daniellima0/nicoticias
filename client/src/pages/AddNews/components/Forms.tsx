@@ -72,7 +72,7 @@ const Forms: React.FC = () => {
     event.preventDefault();
     if (title && description && url) {
       try {
-        fetch(import.meta.env.VITE_BACKEND_BASE_URL, {
+        fetch("http://localhost:4111", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -97,7 +97,7 @@ const Forms: React.FC = () => {
         alert(err);
       }
 
-      // window.location.href = "/news";
+      window.location.href = "/news";
 
       return;
     } else {

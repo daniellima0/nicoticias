@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Mongo DB conncetion
-const database = process.env.MONGODB_URI;
+const database = "mongodb+srv://danielmlimag:F0pu3rwFfDiujfMG@cluster0.zf9fdx0.mongodb.net/?retryWrites=true&w=majority";
 mongoose
   .connect(database, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log("e don connect"))
