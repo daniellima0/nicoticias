@@ -1,24 +1,7 @@
 import { Suspense, useState, useEffect } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import Loading from "./components/Loading";
-import Login from "./pages/Login";
-import News from "./pages/News";
-import AddNews from "./pages/AddNews";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/news",
-    element: <News />,
-  },
-  {
-    path: "/add-news",
-    element: <AddNews />,
-  },
-]);
+import { router } from "./routes/routerConfig";
 
 function App() {
   const [showLoading, setShowLoading] = useState(true);
