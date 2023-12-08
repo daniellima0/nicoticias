@@ -72,7 +72,7 @@ const Forms: React.FC = () => {
     event.preventDefault();
     if (title && description && url) {
       try {
-        fetch("http://localhost:4111", {
+        fetch(import.meta.env.VITE_API_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

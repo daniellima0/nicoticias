@@ -30,7 +30,7 @@ const DeleteButton = styled("button")`
 
 const News: React.FC = () => {
   const handleDelete = () => {
-    fetch("http://localhost:4111/", {
+    fetch(import.meta.env.VITE_API_URL, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
